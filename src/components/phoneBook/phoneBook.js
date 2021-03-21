@@ -22,7 +22,7 @@ export default class PhoneBook extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
     }
@@ -32,6 +32,14 @@ export default class PhoneBook extends Component {
     this.setState((prevState) => {
       return {
         contacts: [...prevState.contacts, createContact(newContact)],
+      };
+    });
+  };
+
+  removeContact = (contactId) => {
+    this.setState((prevState) => {
+      return {
+        contacts: [...prevState.contacts.filter(({ id }) => id !== contactId)],
       };
     });
   };
